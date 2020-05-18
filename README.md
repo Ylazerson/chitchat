@@ -117,7 +117,13 @@ View information about your running app:
 ## Run the app locally:
 
 ### Build package:
-- See https://golang.org/cmd/go/#hdr-Compile_packages_and_dependencies
+
+**Syntax**: `go build [-o output] [-i] [build flags] [packages]`
+
+See https://golang.org/cmd/go/#hdr-Compile_packages_and_dependencies
+- `o` : write the resulting executable or object to the named output file or director
+- `v` : prints the names of packages and files as they are processed
+
 
 ```sh
 go build -o bin/chitchat -v .
