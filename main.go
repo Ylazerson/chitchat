@@ -29,6 +29,8 @@ func main() {
 	// -- --------------------------------------
 	// handle static assets
 	mux := http.NewServeMux()
+
+	// For file server purposes:
 	files := http.FileServer(http.Dir(config.Static))
 	mux.Handle("/static/", http.StripPrefix("/static/", files))
 
