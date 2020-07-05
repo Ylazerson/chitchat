@@ -9,8 +9,8 @@
 2. Install **Heroku CLI** 
     - https://devcenter.heroku.com/articles/heroku-cli
 
-3. Set up **pgAdmin4**
-    - Forget it; this tool is uggggh - just go with **DataGrip** instead.
+3. Add the VS-Code **PostgreSQL Explorer** Extension 
+    
 
 
 ---    
@@ -77,8 +77,7 @@ Heroku also provides a `pg` command that shows a lot more:
 - Open that app on your Heroku dashboard: https://dashboard.heroku.com/apps
 - Open the PostgreSQL add-on for that app.
 - View Credentials on the Settings app.
-- Create connection in pgAdmin4 using that info.
-    - See https://medium.com/@vapurrmaid/getting-started-with-heroku-postgres-and-pgadmin-run-on-part-2-90d9499ed8fb
+- Create connection in **PostgreSQL Explorer** Extension
 
 #### Step 8:
 - Using pgAdmin run the `data/setup.sql` script.
@@ -90,6 +89,7 @@ Heroku also provides a `pg` command that shows a lot more:
 ```sh
 go mod tidy
 go mod vendor
+go test
 
 git status
 git add --all

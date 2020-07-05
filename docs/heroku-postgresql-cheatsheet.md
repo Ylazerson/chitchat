@@ -27,6 +27,16 @@ Continuous Protection: Off
 Add-on:                postgresql-corrugated-45675
 ```
 
+
+---
+
+#### `heroku pg:credentials:url`
+- Heroku Postgres provides convenient access to the credentials and location of your database should you want to use a GUI to access your instance.
+- https://devcenter.heroku.com/articles/heroku-postgresql#pg-credentials
+
+
+
+
 ---
 
 #### `heroku pg:psql`
