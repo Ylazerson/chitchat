@@ -44,6 +44,9 @@ func main() {
 	// error
 	mux.HandleFunc("/err", err)
 
+	// defined in route_junk.go
+	mux.HandleFunc("/junk", junk)
+
 	// defined in route_auth.go
 	mux.HandleFunc("/login", login)
 	mux.HandleFunc("/logout", logout)

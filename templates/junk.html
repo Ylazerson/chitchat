@@ -1,0 +1,29 @@
+{{ define "content" }}
+
+
+<p class="lead">
+  Junk: User Threads
+</p>
+
+<!-- ---------------------------------- -->
+<!-- Loop thru slice of Gizmos structs  -->
+
+{{ range . }}
+
+  <div class="panel panel-default">
+
+    <div class="panel-heading">
+      <span class="lead"> <i class="fa fa-comment-o"></i> {{ .Name }}</span>
+    </div>
+    
+    <div class="panel-body">
+      {{ .ThreadCount }} threads created by this user.
+    </div>
+  
+  </div>
+
+{{ end }}
+<!-- ---------------------------------- -->
+
+
+{{ end }}
