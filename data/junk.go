@@ -8,20 +8,20 @@ type Gizmo struct {
 // Get all threads in the database and returns it
 func Gizmos() (gizmos []Gizmo, err error) {
 
-	/*
-			var sqlStr string = `
-		        select   u.name,
-		                 count(*) threadcount
-		        from     users u
-		           inner join threads t
-		              on t.user_id = u.id
-		        group by u.name
-		        order by thread_count desc,
-		                 u.name
-			`
-	*/
+	var sqlStr string = `
+		select   u.name,
+				 count(*) threadcount
+		from     users u
+		   inner join threads t
+			  on t.user_id = u.id
+		group by u.name
+		order by threadcount desc,
+			  	 u.name
+	`
 
-	rows, err := Db.Query("SELECT name, 1 threadcount FROM  users")
+	rows, err := Db.Query(sqlStr)
+
+	// rows, err := Db.Query("SELECT name, 1 threadcount FROM  users")
 
 	if err != nil {
 		return
