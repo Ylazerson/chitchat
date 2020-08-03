@@ -23,7 +23,7 @@ type Session struct {
 
 // Create a new session for an existing user
 func (user *User) CreateSession() (session Session, err error) {
-	
+
 	statement := `
 		insert into sessions 
 		       (
@@ -40,29 +40,29 @@ func (user *User) CreateSession() (session Session, err error) {
 			   ) 
 		returning id, uuid, email, user_id, created_at
 		`
-	
+
 	stmt, err := Db.Prepare(statement)
-	
+
 	if err != nil {
 		return
 	}
-	
+
 	defer stmt.Close()
-	
+
 	// use QueryRow to return a row and scan the returned id into the Session struct
 	err = stmt.QueryRow(
-		createUUID(), 
-		user.Email, 
-		user.Id, 
-		time.Now()
-		).Scan(
-			&session.Id, 
-			&session.Uuid, 
-			&session.Email, 
-			&session.UserId, 
-			&session.CreatedAt
-		)
-	
+		createUUID(),
+		user.Email,
+		user.Id,
+		time.Now(),
+	).Scan(
+		&session.Id,
+		&session.Uuid,
+		&session.Email,
+		&session.UserId,
+		&session.CreatedAt,
+	)
+
 	return
 }
 
@@ -141,20 +141,19 @@ func (user *User) Create() (err error) {
 	}
 	defer stmt.Close()
 
-
 	// use QueryRow to return a row and scan the returned id into the User struct
 	err = stmt.QueryRow(
-        createUUID(), 
-        user.Name, 
-        user.Email, 
-        Encrypt(user.Password), 
-        time.Now()
-    ).Scan(
-        &user.Id, 
-        &user.Uuid, 
-        &user.CreatedAt
-    )
-	
+		createUUID(),
+		user.Name,
+		user.Email,
+		Encrypt(user.Password),
+		time.Now(),
+	).Scan(
+		&user.Id,
+		&user.Uuid,
+		&user.CreatedAt,
+	)
+
 	return
 }
 
@@ -225,11 +224,11 @@ func UserByEmail(email string) (user User, err error) {
 
 	err = Db.QueryRow(stmt, email).
 		Scan(
-			&user.Id, 
-			&user.Uuid, 
-			&user.Name, 
-			&user.Email, 
-			&user.Password, 
+			&user.Id,
+			&user.Uuid,
+			&user.Name,
+			&user.Email,
+			&user.Password,
 			&user.CreatedAt,
 		)
 
