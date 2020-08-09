@@ -43,10 +43,18 @@ func createThread(writer http.ResponseWriter, request *http.Request) {
 
 // GET /thread/read
 // Show the details of the thread, including the posts and the form to write a post
+// GET /thread/read
+// Show the details of the thread, including the posts and the form to write a post
 func readThread(writer http.ResponseWriter, request *http.Request) {
+
+	// For example: `?id=d07956e4-0cdc-4064-4eae-3d05d4209932`
 	vals := request.URL.Query()
+
+	// For above example: `d07956e4-0cdc-4064-4eae-3d05d4209932`
 	uuid := vals.Get("id")
+
 	thread, err := data.ThreadByUUID(uuid)
+
 	if err != nil {
 		error_message(writer, request, "Cannot read thread")
 	} else {

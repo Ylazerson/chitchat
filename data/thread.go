@@ -30,9 +30,17 @@ func (post *Post) CreatedAtDate() string {
 	return post.CreatedAt.Format("Jan 2, 2006 at 3:04pm")
 }
 
-// get the number of posts in a thread
+// NumReplies gets the number of posts in a thread
 func (thread *Thread) NumReplies() (count int) {
-	rows, err := Db.Query("SELECT count(*) FROM posts where thread_id = $1", thread.Id)
+
+	stmt := `
+		select   count(*) 
+		from     posts 
+		where    thread_id = $1
+	`
+
+	rows, err := Db.Query(stmt, thread.Id)
+
 	if err != nil {
 		return
 	}
@@ -88,10 +96,20 @@ func (user *User) CreatePost(conv Thread, body string) (post Post, err error) {
 	return
 }
 
-// Get all threads in the database and returns it
+// Threads sets all threads in the database and returns it
 func Threads() (threads []Thread, err error) {
 
-	rows, err := Db.Query("SELECT id, uuid, topic, user_id, created_at FROM threads ORDER BY created_at DESC")
+	stmt := `
+	select   id, 
+			 uuid, 
+			 topic, 
+			 user_id, 
+			 created_at 
+	from     threads 
+	order by created_at desc
+	`
+
+	rows, err := Db.Query(stmt)
 
 	if err != nil {
 		return
@@ -101,7 +119,13 @@ func Threads() (threads []Thread, err error) {
 
 		conv := Thread{}
 
-		if err = rows.Scan(&conv.Id, &conv.Uuid, &conv.Topic, &conv.UserId, &conv.CreatedAt); err != nil {
+		if err = rows.Scan(
+			&conv.Id,
+			&conv.Uuid,
+			&conv.Topic,
+			&conv.UserId,
+			&conv.CreatedAt,
+		); err != nil {
 			return
 		}
 
@@ -112,11 +136,33 @@ func Threads() (threads []Thread, err error) {
 	return
 }
 
-// Get a thread by the UUID
+// ThreadByUUID gets a thread by the UUID
 func ThreadByUUID(uuid string) (conv Thread, err error) {
+
 	conv = Thread{}
-	err = Db.QueryRow("SELECT id, uuid, topic, user_id, created_at FROM threads WHERE uuid = $1", uuid).
-		Scan(&conv.Id, &conv.Uuid, &conv.Topic, &conv.UserId, &conv.CreatedAt)
+
+	stmt := `
+		select   id, 
+				 uuid, 
+				 topic, 
+				 user_id, 
+				 created_at 
+		from     threads 
+		where    uuid = $1
+	`
+
+	err = Db.QueryRow(
+		stmt,
+		uuid,
+	).
+		Scan(
+			&conv.Id,
+			&conv.Uuid,
+			&conv.Topic,
+			&conv.UserId,
+			&conv.CreatedAt,
+		)
+
 	return
 }
 

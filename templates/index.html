@@ -16,6 +16,8 @@
       <span class="lead"> <i class="fa fa-comment-o"></i> {{ .Topic }}</span>
     </div>
     
+    <!-- ------------------------------ -->
+    <!-- Note the below method calls (not struct fields) -->
     <div class="panel-body">
       Started by {{ .User.Name }} - {{ .CreatedAtDate }} - {{ .NumReplies }} posts.
       <div class="pull-right">
@@ -25,7 +27,7 @@
   
   </div>
 
-  {{ end }}
+{{ end }}
 <!-- ---------------------------------- -->
 
 

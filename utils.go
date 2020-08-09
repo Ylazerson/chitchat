@@ -62,7 +62,9 @@ func session(writer http.ResponseWriter, request *http.Request) (sess data.Sessi
 
 	if err == nil {
 
-		sess = data.Session{Uuid: cookie.Value}
+		sess = data.Session{
+			Uuid: cookie.Value,
+		}
 
 		if ok, _ := sess.Check(); !ok {
 			err = errors.New("Invalid session")

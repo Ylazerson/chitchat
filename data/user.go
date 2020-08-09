@@ -74,17 +74,42 @@ func (user *User) Session() (session Session, err error) {
 	return
 }
 
-// Check if session is valid in the database
+// Check (method) goes ahead and sees if the session is valid in the database
 func (session *Session) Check() (valid bool, err error) {
-	err = Db.QueryRow("SELECT id, uuid, email, user_id, created_at FROM sessions WHERE uuid = $1", session.Uuid).
-		Scan(&session.Id, &session.Uuid, &session.Email, &session.UserId, &session.CreatedAt)
+
+	// Setup SQL query:
+	stmt := `
+		select   id, 
+				 uuid, 
+				 email, 
+				 user_id, 
+				 created_at 
+	    from     sessions 
+	    where    uuid = $1
+	`
+
+	// Run query and put results in the session struct
+	err = Db.QueryRow(
+		stmt,
+		session.Uuid,
+	).
+		Scan(
+			&session.Id,
+			&session.Uuid,
+			&session.Email,
+			&session.UserId,
+			&session.CreatedAt,
+		)
+
 	if err != nil {
 		valid = false
 		return
 	}
+
 	if session.Id != 0 {
 		valid = true
 	}
+
 	return
 }
 
