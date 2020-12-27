@@ -2,6 +2,15 @@
 
 
 
+## URLs
+
+|      Desc      |                            URL                            |
+| -------------- | --------------------------------------------------------- |
+| Heroku CLI Ref | https://devcenter.heroku.com/articles/heroku-cli-commands |
+
+
+
+
 ## Prerequisites
 
 1. Create an account on **Heroku**
@@ -53,6 +62,15 @@
 - `git remote -v`
 - `git push heroku master`
 - Note, the file `Procfile` tells Heroku which command(s) to run to start your app.
+
+**If you already have an exiting app:**
+```sh
+# List your heroku apps:
+heroku apps
+
+# Connect:
+heroku git:remote -a sheltered-fortress-22582
+```
 
 
 #### Step 5:
